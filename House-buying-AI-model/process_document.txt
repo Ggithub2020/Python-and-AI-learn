@@ -1,0 +1,230 @@
+House Buying AI Web App – Full Step-by-Step Guide
+By: Girum AI Engineer 👨‍💻
+✅ Overview
+This project uses:
+
+Python for the backend and AI model
+
+Flask as the web server framework
+
+HTML + CSS for the user interface
+
+scikit-learn to train and predict using a Decision Tree
+
+joblib to save and load the ML model
+
+We’ll build a simple web app where users enter their age and income, and the app predicts if they will buy a house or not.
+
+📁 Step 1: Set Up Your Project Folder
+Create a folder for your project.
+You can name it:
+
+bash
+Copy
+Edit
+House_buying_AI_model
+Inside this folder, we’ll add 3 main files and 1 folder.
+
+Final structure will look like:
+
+css
+Copy
+Edit
+House_buying_AI_model/
+│
+├── app.py
+├── save_model.py
+├── model.pkl
+└── templates/
+    └── form.html
+🧪 Step 2: Train and Save the AI Model
+Create a file called save_model.py and paste the following code:
+
+python
+Copy
+Edit
+from sklearn.tree import DecisionTreeClassifier
+import joblib
+
+# Training data: [age, income]
+x = [
+    [25,50000],
+    [35,60000],
+    [45,80000],
+    [20,30000],
+    [50,100000],
+    [23,40000],
+    [70,70000]
+]
+
+# Labels: 0 = will not buy, 1 = will buy
+y = [0, 1, 1, 0, 1, 0, 1]
+
+# Train model
+model = DecisionTreeClassifier()
+model.fit(x, y)
+
+# Save the trained model to a file
+joblib.dump(model, "model.pkl")
+Then run it once:
+
+bash
+Copy
+Edit
+python save_model.py
+This will create a file model.pkl (your trained AI model).
+
+🌐 Step 3: Create the Flask Web App
+Create a new file called app.py and paste the following code:
+
+python
+Copy
+Edit
+from flask import Flask, request, render_template
+import joblib
+
+app = Flask(__name__)
+
+# Load the trained model
+model = joblib.load("model.pkl")
+
+@app.route("/")
+def home():
+    return render_template("form.html")
+
+@app.route("/predict", methods=["POST"])
+def predict():
+    age = int(request.form["age"])
+    income = int(request.form["income"])
+    prediction = model.predict([[age, income]])[0]
+    result = "will buy a house" if prediction == 1 else "will not buy a house"
+    return render_template("form.html", prediction=result)
+
+if __name__ == "__main__":
+    app.run(debug=True)
+🎨 Step 4: Create the HTML Form
+Inside your project folder, create a new folder called:
+
+nginx
+Copy
+Edit
+templates
+Inside templates/, create a file named form.html and paste the code below:
+
+html
+Copy
+Edit
+<!DOCTYPE html>
+<html>
+<head>
+    <title>House Purchase Predictor</title>
+    <style>
+        body {
+            background-color: #0d1b2a; /* Dark blue */
+            color: #ffffff;           /* White text */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        form {
+            background-color: #1b263b;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        input[type="number"], input[type="submit"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            background-color: #00b4d8;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0077b6;
+        }
+
+        h2, h3 {
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            font-size: 14px;
+            color: #cccccc;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🏠 Will You Buy a House?</h2>
+        <form method="post" action="/predict">
+            Age: <br><input type="number" name="age" required><br><br>
+            Income: <br><input type="number" name="income" required><br><br>
+            <input type="submit" value="Predict">
+        </form>
+
+        {% if prediction %}
+            <h3>Prediction: {{ prediction }}</h3>
+        {% endif %}
+    </div>
+
+    <div class="footer">
+        © 2025 Developed by Girum AI Engineer
+    </div>
+
+</body>
+</html>
+🚀 Step 5: Run the Web App
+Open your terminal, navigate to your project folder, and run:
+
+bash
+Copy
+Edit
+python app.py
+Then open your browser and go to:
+
+cpp
+Copy
+Edit
+http://127.0.0.1:5000
+You’ll see your web app with a form and styled interface!
+
+🔧 Step 6: (If Needed) Install Required Libraries
+If you haven’t installed Flask or scikit-learn yet, do this:
+
+bash
+Copy
+Edit
+pip install flask scikit-learn joblib
+🎉 You're Done!
+You now have a working AI-powered web app that can predict whether a person might buy a house based on age and income — and it looks stylish too!
+
+📌 Credits Footer
+This footer is shown on your webpage:
+
+csharp
+Copy
+Edit
+© 2025 Developed by Girum AI Engineer

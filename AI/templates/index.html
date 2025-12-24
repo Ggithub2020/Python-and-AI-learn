@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chatbot</title>
+  <style>
+    body {
+      margin: 0;
+      padding-bottom: 150px;
+      font-family: Arial, sans-serif;
+      background-color: #001f3f; /* Dark blue background */
+      color: white;
+    }
+
+    h1 {
+      color: white;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #chat-container {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #072931;
+      border-top: 1px solid #ccc;
+      padding: 10px;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin: auto;
+      width: 100%;
+    }
+
+    #messages {
+      max-height: 200px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+      background: white;
+      color: black;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    #user-input {
+      width: 80%;
+      padding: 8px;
+      font-size: 16px;
+    }
+
+    #send-btn {
+      width: 18%;
+      padding: 8px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      margin-left: 2%;
+    }
+
+    #send-btn:hover {
+      background-color: #45a049;
+    }
+
+    .message {
+      margin: 5px 0;
+    }
+
+    .user {
+      color: blue;
+    }
+
+    .bot {
+      color: green;
+    }
+
+    /* Floating animation */
+    @keyframes floatText {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    .floating {
+      animation: floatText 3s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Girum BI Assistant</h1>
+
+  <div class="floating" style="background-color: rgb(43, 43, 48); padding: 15px; border-radius: 5px; margin: 20px; color: white;">
+    <p>
+      Welcome to your personal data companion! This chatbot is here to help you with Power BI, SQL, Business Intelligence, Data Analysis, and AI-related questions. Whether you're building reports, writing queries, or exploring insights, just ask—and get expert guidance in seconds.
+    </p>
+  </div>
+
+  <div id="chat-container">
+    <div id="messages"></div>
+    <input id="user-input" type="text" placeholder="Type your message here..." />
+    <button id="send-btn">Send</button>
+  </div>
+
+  <script>
+    const messagesDiv = document.getElementById('messages');
+    const userInput = document.getElementById('user-input');
+    const sendBtn = document.getElementById('send-btn');
+
+    function appendMessage(text, sender) {
+      const msgDiv = document.createElement('div');
+      msgDiv.classList.add('message', sender);
+      msgDiv.textContent = (sender === 'user' ? 'You: ' : 'Bot: ') + text;
+      messagesDiv.appendChild(msgDiv);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    sendBtn.addEventListener('click', () => {
+      const message = userInput.value.trim();
+      if (!message) return;
+      appendMessage(message, 'user');
+      userInput.value = '';
+
+      fetch('/predictchat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message }),
+      })
+        .then(response => response.json())
+        .then(data => {
+          appendMessage(data.response, 'bot');
+        });
+    });
+
+    userInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') sendBtn.click();
+    });
+  </script>
+
+</body>
+<footer style="
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    font-size: 14px;
+    color: #666;
+">
+  &copy; <span id="year"></span> Girum Power BI Support Assistant. All rights reserved.
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>

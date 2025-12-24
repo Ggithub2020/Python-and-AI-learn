@@ -1,0 +1,4 @@
+This is a sample file.
+It contains some text data.
+You can read this file using Python.
+video provided by: https://www.youtube.com/@PythonProgrammer

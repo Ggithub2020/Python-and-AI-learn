@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>House Purchase Predictor</title>
+    <style>
+        body {
+            background-color: #0d1b2a; /* Dark blue */
+            color: #ffffff;           /* White text */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        form {
+            background-color: #1b263b;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        input[type="number"], input[type="submit"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            background-color: #00b4d8;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0077b6;
+        }
+
+        h2, h3 {
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            font-size: 14px;
+            color: #cccccc;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🏠 Will You Buy a House?</h2>
+        <form method="post" action="/predict">
+            Age: <br><input type="number" name="age" required><br><br>
+            Income: <br><input type="number" name="income" required><br><br>
+            <input type="submit" value="Predict">
+        </form>
+
+        {% if prediction %}
+            <h3>Prediction: {{ prediction }}</h3>
+        {% endif %}
+    </div>
+
+    <div class="footer">
+        © 2025 Developed by Girum AI Engineer
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+Summary
+This script demonstrates basic face detection using OpenCV’s Haar Cascade classifier.
+
+It loads an image, detects faces, draws rectangles around them, and displays the result.
+
+It requires the image file face.jpg to be available in the working directory.
+
+OpenCV handles the complex image processing and machine learning model inference behind the scenes.
