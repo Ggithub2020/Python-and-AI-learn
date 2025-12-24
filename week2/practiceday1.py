@@ -56,20 +56,20 @@
 
 
 
-grade=int(input("Enter your grade percentage: "))
-if (grade >= 90 and grade <= 100):
-    print("Your grade is A+")
-elif (grade >= 80 and grade < 90):
-    print("Your grade is A")
-elif (grade >= 70 and grade < 80):
-    print("Your grade is B+")   
-elif (grade >= 60 and grade < 70):
-    print("Your grade is B")
-elif (grade >= 50 and grade < 60):
-    print("Your grade is C")
-elif (grade >= 40 and grade < 50):
-    print("Your grade is D")
-elif (grade >= 0 and grade < 40):
-    print("Your grade is F")
-else:
-    print("Invalid grade percentage")
+# grade=int(input("Enter your grade percentage: "))
+# if (grade >= 90 and grade <= 100):
+#     print("Your grade is A+")
+# elif (grade >= 80 and grade < 90):
+#     print("Your grade is A")
+# elif (grade >= 70 and grade < 80):
+#     print("Your grade is B+")   
+# elif (grade >= 60 and grade < 70):
+#     print("Your grade is B")
+# elif (grade >= 50 and grade < 60):
+#     print("Your grade is C")
+# elif (grade >= 40 and grade < 50):
+#     print("Your grade is D")
+# elif (grade >= 0 and grade < 40):
+#     print("Your grade is F")
+# else:
+#     print("Invalid grade percentage")
